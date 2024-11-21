@@ -14,11 +14,20 @@ class CuentaBancaria{
 }
 
 class TarjetaCredito inherits CuentaBancaria{
-    var property cuotasPermitidas
-    var property aPagar = []  // lista de objetos
-    var property mes
+    var property cantidadCuotas 
+    var property aPagar = []  
 
+    method montoAPagar(monto) = monto * porcentaje / cantidadCuotas
 
+    method pagarConTarjeta(objeto){
+        aPagar.forEach({cuota => cuota + self.montoAPagar(objeto.monto())}) // revisar
+    }
+
+    method pagarUnaDeuda(mes){
+        var nuevoMonto = montoActual - aPagar.get(mes)
+        (nuevoMonto + aPagar.drop(mes)).asList()
+
+    }
 
 
 }
