@@ -33,7 +33,7 @@ describe "Tests debito" {
     
     pepe.comprar(nacion, heladera)
 
-    assert.equals([heladera], pepe.compras()) // no se puede y muestra una excepcion
+    assert.equals([heladera], pepe.compras()) 
   }
 
   test "pepe cobra sueldo"{
