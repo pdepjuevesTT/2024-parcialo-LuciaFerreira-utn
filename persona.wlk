@@ -31,9 +31,12 @@ class Persona{
         metodo.criterioDisminucion(self,montoCompra)
     }
 
+    method pagarDeudasConSueldo() = cuentaBancaria.tarjetaCredito().pagarDeudas(mesActual)
+
+
     method cobrarSueldo(){
         trabajo.cobrar(self)
-        cuentaBancaria.tarjetaCredito().pagarDeudas(mesActual)
+        self.pagarDeudasConSueldo()
     }
 
     method deudasVencidas() = cuentaBancaria.deudasVencidas()
@@ -85,15 +88,18 @@ class CompradoresCompulsivos inherits Persona{
 }
 
 class PagadoresCompulsivos inherits Persona{
+    
+    method depositarABanco() = self.cuentaBancaria().depositar(self.efectivo())
+
     method pagarMasDeudas(){
         if(self.deudasVencidas() > 0)
-        self.cuentaBancaria().depositar(self.efectivo())
+        self.depositarABanco()
         self.disminuirEfectivo(self.efectivo())
     }
 }
 
 
-class Objeto{
+class Objeto{ // poongo a objeto aca por temas de no agregar un archivo casi vacio solo con esta clase
     const property objeto
     const property montoCompra
 }
