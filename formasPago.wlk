@@ -27,7 +27,7 @@ class Debito inherits FormaPago{
     }
 }
 
-class Tarjeta inherits Debito{} // puede heredar debito, revisar
+class Tarjeta inherits Debito{} 
 
 
 class CreditoBancario inherits Debito{
@@ -36,3 +36,5 @@ class CreditoBancario inherits Debito{
     override method criterio(persona,montoCompra) = super(persona,montoCompra) and self.leDaElCredito(persona)
 
 }
+
+// hice en formato clases debiido a que pueden haber diversas tarjetas de debito, credito o diversos creditos bancarios
