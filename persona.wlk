@@ -31,16 +31,11 @@ class Persona{
         metodo.criterioDisminucion(self,montoCompra)
     }
 
-    method pagarDeudasConSueldo() = cuentaBancaria.tarjetaCredito().pagarUnaDeuda(mesActual)
-
-
     method cobrarSueldo(){
         trabajo.cobrar(self) // lo dividi para el testeo de pagar sueldos
     }
 
-    method pagarDeuda(){
-        self.pagarDeudasConSueldo()
-    }
+    method pagarDeudasConSueldo() = cuentaBancaria.tarjetaCredito().pagarUnaDeuda(mesActual)
 
     method deudasVencidas() = cuentaBancaria.deudasVencidas()
 
