@@ -9,6 +9,7 @@ class Persona{
 
     var property compras = [] 
     var property trabajo 
+    const property nombre
 
     var property mesActual // ver
 
@@ -27,7 +28,7 @@ class Persona{
     method leAlcanza(montoCompra,metodoPago) = metodoPago.criterio(self,montoCompra)
 
     method disminuir(montoCompra, metodo){
-        metodo.criterioDisminucion()
+        metodo.criterioDisminucion(self,montoCompra)
     }
 
     method cobrarSueldo(){
