@@ -31,11 +31,14 @@ class Persona{
         metodo.criterioDisminucion(self,montoCompra)
     }
 
-    method pagarDeudasConSueldo() = cuentaBancaria.tarjetaCredito().pagarDeudas(mesActual)
+    method pagarDeudasConSueldo() = cuentaBancaria.tarjetaCredito().pagarUnaDeuda(mesActual)
 
 
     method cobrarSueldo(){
-        trabajo.cobrar(self)
+        trabajo.cobrar(self) // lo dividi para el testeo de pagar sueldos
+    }
+
+    method pagarDeuda(){
         self.pagarDeudasConSueldo()
     }
 
@@ -69,7 +72,7 @@ class Trabajo{
     }
 
     method cobrar(persona){
-        persona.CuentaBancaria().montoMax(salario) // le pongo la plata en la cuenta bancaria
+        persona.cuentaBancaria().depositar(salario) // le pongo la plata en la cuenta bancaria
     }
 
     method transcurreMes(){
@@ -109,3 +112,4 @@ class UserException inherits Exception{}
 
 // Aclaracion, hice que dependa la compra de la persona para que se pueda cumpli la segunda parte de compradores y pagadores compulsivos, originalmentr
 // habia delegado la compra a una clase Compra donde estaba la informacion del objeto
+
