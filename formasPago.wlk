@@ -16,7 +16,11 @@ class Efectivo inherits FormaPago{
 }
 
 class Debito inherits FormaPago{
-    override method criterio(persona,montodeCompra) = persona.cuentaBancaria().leAlcanza(montodeCompra) // hacer falta lo de cumplir con el titular
+
+    method cumpleConPapeles(persona,monto) = persona.cuentaBancaria().leAlcanza(monto) and persona.cuentaBancaria().esPropietario(persona)
+
+
+    override method criterio(persona,montodeCompra) = self.cumpleConPapeles(persona, montodeCompra) // hacer falta lo de cumplir con el titular
 
     override method criterioDisminucion(persona,montoCompra){
         persona.cuentaBancaria().gastarCC(montoCompra)
