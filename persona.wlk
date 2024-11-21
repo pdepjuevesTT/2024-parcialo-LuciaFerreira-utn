@@ -28,18 +28,29 @@ class Persona{
         metodo.criterioDisminucion()
     }
 
-    method comprar(objeto){
-        objeto.compran(self,metodoPreferido)
-    } 
-
     method cobrarSueldo(){
         trabajo.cobrar(self)
         cuentaBancaria.tarjetaCredito().pagarDeudas(mesActual)
     }
 
-    method deudasVencidad() = cuentaBancaria.deudasVencidas()
+    method deudasVencidas() = cuentaBancaria.deudasVencidas()
 
     method cantidadCompras() = compras.size()
+
+    method concretarCompra(unObjeto,metodo){
+        self.agregarObjeto(unObjeto)
+        self.disminuir(unObjeto.montoCompra(),metodo)
+    }
+
+    method noCumple(objeto) {
+       throw new UserException(message = "No es posible concretar la compra")
+    }
+
+    method comprar(metodoPago,objeto){
+        if (!self.leAlcanza(objeto.montoCompra(),metodoPago))
+          self.noCumple(objeto)
+        else self.concretarCompra(objeto,metodoPago)
+    } 
 
 }
 
@@ -61,7 +72,25 @@ class Sueldo{
 }
 
 
+class CompradoresCompulsivos inherits Persona{
+    method nuevoMetodo(objeto) = formasDePago.find({forma => self.leAlcanza(objeto.montoCompra(), forma)})
 
-// puede que haya objeto cuenta bancaria o class
-// tarjeta de credito es entidad
-// hay un banco 
+    override method noCumple(objeto){
+        self.comprar(self.nuevoMetodo(objeto),objeto)
+    }
+
+}
+
+class PagadoresCompulsivos inherits Persona{
+    method pagarMasDeudas(){
+        if(self.deudasVencidas() > 0)
+        self.cuentaBancaria().depositar(self.efectivo())
+        self.disminuirEfectivo(self.efectivo())
+    }
+}
+
+
+class UserException inherits Exception{}
+
+// Aclaracion, hice que dependa la compra de la persona para que se pueda cumpli la segunda parte de compradores y pagadores compulsivos, originalmentr
+// habia delegado la compra a una clase Compra donde estaba la informacion del objeto
