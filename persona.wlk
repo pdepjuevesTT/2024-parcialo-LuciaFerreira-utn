@@ -89,6 +89,11 @@ class PagadoresCompulsivos inherits Persona{
     }
 }
 
+class Objeto{
+    const property objeto
+    const property montoCompra
+}
+
 
 class UserException inherits Exception{}
 
