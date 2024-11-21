@@ -11,6 +11,10 @@ class CuentaBancaria{
         montoActual -= montoCompra
     }
 
+    method depositar(cantidad){
+        montoActual+=cantidad
+    }
+
 }
 
 class TarjetaCredito inherits CuentaBancaria{
