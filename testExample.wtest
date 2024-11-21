@@ -36,4 +36,16 @@ describe "Tests debito" {
     assert.equals([heladera], pepe.compras()) // no se puede y muestra una excepcion
   }
 
+  test "pepe cobra sueldo"{
+    const tarjetaDebito = new Debito(max = 5000 )
+    const conserje = new Trabajo(salario = 20000, montoSubida = 5000 )
+    const nacion = new CuentaBancaria(titulares = ["pepe"], montoActual=5000,tarjetaCredito = 0, porcentaje=0.3)
+    const pepe = new Persona(formasDePago = [tarjetaDebito], metodoPreferido= tarjetaDebito,efectivo=100, cuentaBancaria = nacion,compras=[], trabajo=conserje, mesActual = 0, nombre = "pepe" )
+    pepe.cobrarSueldo()
+
+    assert.equals(25000,pepe.cuentaBancaria().montoActual())
+
+
+  }
+
 }
