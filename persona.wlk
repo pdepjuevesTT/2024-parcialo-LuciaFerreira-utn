@@ -1,12 +1,14 @@
 import cuentaBancaria.*
 class Persona{
     var property formasDePago 
-    var property metodoPreferido // fijarse de hacer objeto
-    var property efectivo // siempre va a tener efectivo
+    var property metodoPreferido
+    var property efectivo
     const property cuentaBancaria 
 
     var property compras = [] 
-    var property trabajo // composicion ya que puede cambiar 
+    var property trabajo 
+
+    var property mesActual // ver
 
     method disminuirEfectivo(monto){
         efectivo-=monto
@@ -32,10 +34,12 @@ class Persona{
 
     method cobrarSueldo(){
         trabajo.cobrar(self)
-        cuentaBancaria.tarjetaCredito().pagarDeudas()
+        cuentaBancaria.tarjetaCredito().pagarDeudas(mesActual)
     }
 
-    method deudasVencidad() = cuentaBancaria.deudasVencidad()
+    method deudasVencidad() = cuentaBancaria.deudasVencidas()
+
+    method cantidadCompras() = compras.size()
 
 }
 
@@ -55,6 +59,7 @@ class Sueldo{
         self.aumentar(montoMax)
     }
 }
+
 
 
 // puede que haya objeto cuenta bancaria o class
