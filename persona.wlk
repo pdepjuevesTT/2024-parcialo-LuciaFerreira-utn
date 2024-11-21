@@ -12,6 +12,10 @@ class Persona{
     const property nombre
 
     var property mesActual // ver
+    
+    method cambiarMes(mesNuevo){
+        mesActual=mesNuevo
+    }
 
     method disminuirEfectivo(monto){
         efectivo-=monto
@@ -31,11 +35,12 @@ class Persona{
         metodo.criterioDisminucion(self,montoCompra)
     }
 
+    method pagarDeudasConSueldo() = cuentaBancaria.tarjetaCredito().pagarUnaDeuda(mesActual)
+
+
     method cobrarSueldo(){
         trabajo.cobrar(self) // lo dividi para el testeo de pagar sueldos
     }
-
-    method pagarDeudasConSueldo() = cuentaBancaria.tarjetaCredito().pagarUnaDeuda(mesActual)
 
     method deudasVencidas() = cuentaBancaria.deudasVencidas()
 
@@ -70,8 +75,10 @@ class Trabajo{
         persona.cuentaBancaria().depositar(salario) // le pongo la plata en la cuenta bancaria
     }
 
-    method transcurreMes(){
+    method transcurreMes(persona){
         self.aumentar(montoSubida)
+        self.cobrar(persona)
+        persona.cambiarMes(persona.mesActual()+1)
     }
 }
 
@@ -107,4 +114,3 @@ class UserException inherits Exception{}
 
 // Aclaracion, hice que dependa la compra de la persona para que se pueda cumpli la segunda parte de compradores y pagadores compulsivos, originalmentr
 // habia delegado la compra a una clase Compra donde estaba la informacion del objeto
-
