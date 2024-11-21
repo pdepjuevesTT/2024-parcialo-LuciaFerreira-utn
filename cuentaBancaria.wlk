@@ -9,7 +9,7 @@ class CuentaBancaria{
 
     method leAlcanza(unMonto) = unMonto <= montoActual
 
-    method esPropietario(persona) = titulares.contains(persona)
+    method esPropietario(persona) = titulares.contains(persona.nombre())
 
     method gastarCC(montoCompra){
         montoActual -= montoCompra
