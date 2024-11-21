@@ -1,9 +1,23 @@
-import example.pepita
+import persona.*
+import formasPago.*
+import cuentaBancaria.*
 
-describe "group of tests for pepita" {
+describe "Tests debito" {
 
-  test "pepita has initial energy" {
-    assert.equals(100, pepita.energy())
+  test "pepe paga una compra de una heladera con debito" {
+    const tarjetaDebito = new Debito(max = 5000 )
+
+    const conserje = new Trabajo(salario = 20000, montoSubida = 5000 )
+
+    const nacion = new CuentaBancaria(titulares = ["pepe"], montoActual=1500,tarjetaCredito = 0, porcentaje=0.3)
+
+    const pepe = new Persona(formasDePago = [tarjetaDebito], metodoPreferido= tarjetaDebito,efectivo=100, cuentaBancaria = nacion,compras=[], trabajo=conserje, mesActual = 0 )
+
+    const heladera = new Objeto (objeto = "heladera", montoCompra = 2500)
+    
+    pepe.comprar(nacion, heladera)
+
+    assert.equals([heladera], pepe.compras())
   }
 
 }
