@@ -1,4 +1,6 @@
 import cuentaBancaria.*
+import formasPago.*
+
 class Persona{
     var property formasDePago 
     var property metodoPreferido
@@ -46,17 +48,17 @@ class Persona{
        throw new UserException(message = "No es posible concretar la compra")
     }
 
-    method comprar(metodoPago,objeto){
-        if (!self.leAlcanza(objeto.montoCompra(),metodoPago))
+    method comprar(metodoPag,objeto){
+        if (!self.leAlcanza(objeto.montoCompra(),metodoPreferido))
           self.noCumple(objeto)
-        else self.concretarCompra(objeto,metodoPago)
+        else self.concretarCompra(objeto,metodoPreferido)
     } 
 
 }
 
-class Sueldo{
+class Trabajo{
     var property salario // revisar
-    var property montoMax 
+    var property montoSubida
 
     method aumentar(unMonto){
         salario +=unMonto
@@ -67,7 +69,7 @@ class Sueldo{
     }
 
     method transcurreMes(){
-        self.aumentar(montoMax)
+        self.aumentar(montoSubida)
     }
 }
 
@@ -88,6 +90,7 @@ class PagadoresCompulsivos inherits Persona{
         self.disminuirEfectivo(self.efectivo())
     }
 }
+
 
 class Objeto{
     const property objeto
